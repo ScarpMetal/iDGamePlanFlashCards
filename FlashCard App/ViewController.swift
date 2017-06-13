@@ -13,6 +13,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var answerPickerView: UIPickerView!
     @IBOutlet weak var questionTextView: UITextView!
+    
     @IBAction func submitButtonPressed(_ sender: Any) {
         var alert : UIAlertController
         
@@ -29,6 +30,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             alert.addAction(UIAlertAction(title: "Aww.", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true)
         }
+        
+        CardCollection.instance.nextQuestion()
+        
+        setupCardUI()
     }
     
     override func viewDidLoad() {
@@ -49,6 +54,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         questionTextView.text = CardCollection.instance.currentCard.question
         
         questionLabel.text = "Question \(CardCollection.instance.currentIndex + 1)/\(CardCollection.instance.cards.count)"
+        
+        answerPickerView.reloadAllComponents()
     }
     
     // Pickerview Data Source
